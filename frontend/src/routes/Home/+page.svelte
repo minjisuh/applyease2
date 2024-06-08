@@ -1,6 +1,6 @@
 <script>
-    import Calendar from "../../components/Calendar.svelte";
-    import { getData } from "./data.js";
+    import Calendar from "../Calendar.svelte";
+    import { getData } from "../data.js";
 </script>
 
 <div class="container">
