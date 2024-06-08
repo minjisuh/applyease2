@@ -76,7 +76,7 @@
       <img src="/logo2.jpg" alt="Flowbite Logo" />
       <div class="page-name">Apply Ease</div>
       <nav>
-        <a href="/">Home</a>
+        <a href="/Home">Home</a>
         <a href="/Resume">Resume</a>
         <a href="/CoverLetter">CoverLetter</a>
       </nav>

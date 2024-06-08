@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userInfo = JSON.parse(decodeURIComponent(urlParams.get('userInfo')));
+
+            document.getElementById('name').innerText = userInfo.name;
+            document.getElementById('email').innerText = userInfo.email;
+            document.getElementById('phone').innerText = userInfo.phone;
+            document.getElementById('intro2').innerText = userInfo.intro2;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h1>이력서:</h1>
+        <p>Name: <span id="name"></span></p>
+        <p>Phone: <span id="phone"></span></p>
+        <p>Email: <span id="email"></span></p>
+        <p>간단 소개: <span id="intro2"></span></p>
+        <!-- Add more fields as needed -->
+    </div>
+</body>
+</html>

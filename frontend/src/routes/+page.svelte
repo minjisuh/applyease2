@@ -1,10 +1,13 @@
 <script>
-    
-
 </script>
 
-<main>
-    
-    <h1>pagedddd main</h1>
-    <a href="/Resume">Resume</a>
-</main>
+<div class="app-container">
+    <main>
+        <slot></slot>
+    </main>
+
+</div>
+
+<style>
+
+</style>
