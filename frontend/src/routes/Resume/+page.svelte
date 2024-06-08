@@ -269,8 +269,9 @@
     }
 
     .basicinfo .container {
-        display: flex;
-        align-items: flex-start; /* Align items at the start of the container */
+        display : flex;
+        flex-direction : row;
+
     }
 
     .photo-upload {
@@ -278,6 +279,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-right : 20px;
     }
 
     .uploaded-image {
@@ -285,6 +287,7 @@
         height: 4cm;
         margin-top: 10px;
         cursor: pointer;
+        margin-right : 20px;
     }
 
     .user-info {

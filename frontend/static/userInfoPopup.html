@@ -11,6 +11,7 @@
             padding: 20px;
             color: #333;
         }
+        
         .cv-container {
             max-width: 800px;
             margin: auto;
@@ -23,19 +24,43 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
         }
-        h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            font-size : 20px;
+    
+        h2{
+            border-bottom : 1px solid #d8d8d8; 
+            margin-bottom : 40px;
         }
+        .section2 {
+            display : flex;
+            flex-direction : row;
+            margin-bottom: 50px;
+            border-bottom : 1px solid #7c7c7c;
+
+        }
+        .section2 img {
+            margin-right : 20px;
+            margin-left : 10px;
+            width : 3cm;
+            height :4cm;
+            margin-bottom : 10px;
+        }
+        .section2 p {
+            margin-bottom : 3px;    
+            }
+        
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 50px;
+            border-bottom : 1px solid #7c7c7c;
+
         }
         .section p {
             margin: 5px 0;
         }
+        
+    
+
         .career-item, .education-item {
             margin-bottom: 10px;
+
         }
         button {
             display: block;
@@ -157,18 +182,21 @@
     <button onclick="generatePDF()">PDF 파일로 저장</button>
     <div class="cv-container">
         <h1><span id="name"></span></h1>
-        <div class="section">
-            <img src="/empty.png" alt="Empty Square"/>
-            <p><strong>생년월일 </strong> <span id="birth"></span></p>
-            <p><strong>전화번호 </strong> <span id="phone"></span></p>
-            <p><strong>이메일 </strong> <span id="email"></span></p>
-            <p><strong>주소 </strong> <span id="address"></span></p>
-            <p><strong>소개 </strong> <span id="intro2"></span></p>
+        <p><span id="intro2"></span></p>
+        <div class="section2">
+            <img src="/emptyphoto.png" alt="Empty Square" class = 'emptyimage'/>
+            <div class = 'sectiontext'>
+                <p>생년월일 ㅣ<span id="birth"></span></p>
+                <p>전화번호 ㅣ<span id="phone"></span></p>
+                <p>이메일 ㅣ <span id="email"></span></p>
+                <p>주소 ㅣ<span id="address"></span></p>
+        </div>
+        
 
         </div>
         <div class="section">
             <div class="careers">
-                <h3>경력 사항</h3>
+                <h2>경력 사항</h2>
                 <div id="careersList"></div>
             </div>
             
