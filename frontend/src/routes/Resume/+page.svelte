@@ -1,10 +1,7 @@
 <script>
-    
-
 </script>
 
 <main>
-    
     <h1>pagedddd main</h1>
-    <a href="/Resume">Resume</a>
+    <a href="/">Home</a>
 </main>
