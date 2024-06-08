@@ -33,7 +33,7 @@
     }
     .page-name {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #333;
     margin-left: 10px;
     margin-right: auto;
@@ -56,13 +56,13 @@
     text-decoration: none;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
-    font-weight: 500; /* 폰트 굵기 변경 */
-    font-size: 16px; /* 폰트 크기 변경 */
+    font-weight: lighter; /* 폰트 굵기 변경 */
+    font-size: 15px; /* 폰트 크기 변경 */
     }
 
     nav a:hover {
     border-radius: 20px;
-    background-color: #286a86;
+    background-color: #7899a7;
     color: #fff; /* 호버 시 텍스트 색상 변경 */
 
 

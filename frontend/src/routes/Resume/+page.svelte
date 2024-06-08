@@ -1,37 +1,38 @@
 <script>
-    let userInfo = { // 사용자 기본 정보
-        name: '서민지',
-        phone: '010-1234-5678',
-        email: 'example@example.com',
-        intro2 : '안녕하세요'
+    import Flatpickr from 'svelte-flatpickr';
+    import 'flatpickr/dist/flatpickr.css';
+    import { format } from 'date-fns';
+
+    let userInfo = {
+        name: '',
+        phone: '',
+        email: '',
+        intro2 : ''
     };
 
-    function openPopup() {
-        // Encode userInfo as a query parameter
-        const userInfoParam = encodeURIComponent(JSON.stringify(userInfo));
-        const popup = window.open(`/userInfoPopup.html?userInfo=${userInfoParam}`, 'UserInfoPopup', 'width=600,height=400');
-    }
+    let isEditing = false;
 
-    let isEditing = false; // 수정 모드 상태
-    
-    // '수정' 버튼 클릭 이벤트 핸들러
     function toggleEdit() {
         isEditing = !isEditing;
     }
 
-    let careers = [];
+    let careers = [
+        { startDate: null, endDate: null, company: '', department: '', isEditable: true },
+    ];
 
     function addCareer() {
-        careers = [...careers, { startYear: '', startMonth: '', endYear: '', endMonth: '', company: '', department: '', isEditable: true }];
+        careers = [...careers, { startDate: null, endDate: null, company: '', department: '', isEditable: true }];
     }
 
     function saveCareer(index) {
-        let career = careers[index];
-        career.isEditable = false;
-        careers = [...careers.slice(0, index), career, ...careers.slice(index + 1)];
+        careers[index].isEditable = false;
     }
-    let educationHistory = [
-    ];
+
+    function formatDate(date) {
+        return date ? format(new Date(date), 'yyyy.MM') : '';
+    }
+
+    let educationHistory = [];
 
     function addEducation() {
         educationHistory = [...educationHistory, { degree: '', school: '', major: '', isEditable: true }];
@@ -39,61 +40,61 @@
 
     function editEducation(index) {
         educationHistory[index].isEditable = true;
-        educationHistory = [...educationHistory]; // Svelte가 배열의 변화를 감지하도록 새로운 배열 할당
+        educationHistory = [...educationHistory];
     }
 
     function saveEducation(index) {
         educationHistory[index].isEditable = false;
-        educationHistory = [...educationHistory]; // Svelte가 배열의 변화를 감지하도록 새로운 배열 할당
+        educationHistory = [...educationHistory];
     }
 
-    let links = [];
+    function openPopup() {
+        const data = {
+            userInfo,
+            careers,
+            educationHistory
+        };
 
-    // 링크와 설명을 links 배열에 추가
-    function addLink() {
-        links = [...links, { url: '', description: '', isEditable: true }];
-    }
-    function editLink(index) {
-        links[index].isEditable = true;
-        links = [...links]; // Svelte가 배열의 변화를 감지하도록 새로운 배열 할당
-    }
-    function saveLink(index) {
-        links[index].isEditable = false;
-        links = [...links]; // Svelte가 배열의 변화를 감지하도록 새로운 배열 할당
+        const dataParam = encodeURIComponent(JSON.stringify(data));
+        const popup = window.open(`/userInfoPopup.html?data=${dataParam}`, 'UserInfoPopup', 'width=600,height=400');
     }
 
-  </script>
-  
+
+
+    
+
+
+
+</script>
+
 <div class="container">
     <header class="page-header">
-        <h1>📜 이력서</h1> 
+        <h1>📜 이력서</h1>
         <button on:click={openPopup}>Open User Info Popup</button>
     </header>
 
 
 
     <div class = 'basicinfo'>
-        <button on:click={toggleEdit}>{isEditing ? '📥 저장' : '🔧 수정'}</button>
         <div class='header'>
             <h2>😊 기본 정보</h2>
+            <button on:click={toggleEdit}>{isEditing ? '📥' : '🔧'}</button>
         </div>
         <div>
-            <label>이름 : </label>
-            <input type="text" bind:value={userInfo.name} class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            <input type="text" bind:value={userInfo.name} placeholder="이름" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
         </div>
         <div>
-            <label>전화번호 : </label>
-            <input type="text" bind:value={userInfo.phone} class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            <input type="text" bind:value={userInfo.phone} placeholder="전화 번호" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
         </div>
         <div>
-            <label>이메일 : </label>
-            <input type="email" bind:value={userInfo.email} class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            <input type="email" bind:value={userInfo.email} placeholder="이메일" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
         </div>
     </div>
       
     <div class="intro">
         <div class="header">
           <h2>📢 간단 소개</h2>
+          <button on:click={toggleEdit}>{isEditing ? '📥' : '🔧'}</button>
         </div>
         <div>
             <textarea bind:value={userInfo.intro2} class="inputField" class:noBorder={!isEditing} disabled={!isEditing}></textarea>
@@ -102,75 +103,23 @@
       
 
     <div class='careers'>
-        <div class = 'carrerheader'>
+        <div class='careerheader'>
             <h2>💼 경력</h2>
             <button on:click={addCareer}>+ 경력 추가</button>
         </div>
         {#each careers as career, index}
         <div class="career-input">
             {#if career.isEditable}
-                <div class = "starttime">
-                    
-                    <select bind:value={career.startYear}>
-                        <option value="">년도</option>
-                        <option>2024</option>
-                        <option>2023</option>
-                        <option>2022</option>
-                        <option>2021</option>
-                    </select>
- 
-                    <select bind:value={career.startMonth}>
-                        <option value="">월</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
-                </div>
-                <div class = "endtime">
-
-                    <select bind:value={career.endYear}>
-                        <option value="">년도</option>
-                        <!-- 년도 옵션, 실제로는 동적으로 생성될 수 있습니다 -->
-                        <option>2024</option>
-                        <option>2023</option>
-                        <option>2022</option>
-                        <option>2021</option>
-                        <!-- 여기에 더 많은 년도 추가 -->
-                    </select>
-
-                    <select bind:value={career.endMonth}>
-                        <option value="">월</option>
-                        <!-- 월 옵션 -->
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                    </select>
+                <div class="time">
+                    <Flatpickr bind:value={career.startDate} placeholder='입사 년도' options={{ dateFormat: "Y-m-d" }} />
+                    <Flatpickr bind:value={career.endDate} placeholder='퇴사 년도' options={{ dateFormat: "Y-m-d" }} />
                 </div>
                 <input type="text" placeholder="회사명" bind:value={career.company} />
                 <input type="text" placeholder="부서명/직책" bind:value={career.department} />
                 <button on:click={() => saveCareer(index)}>저장</button>
             {:else}
-                <!-- 편집 불가능한 텍스트로 표시 -->
                 <div class="career-wrapper">
-                    {career.startYear}. {career.startMonth} - {career.endYear}. {career.endMonth} / {career.company} / {career.department}
+                    {formatDate(career.startDate)} - {formatDate(career.endDate)} / {career.company} / {career.department}
                 </div>
             {/if}
         </div>
@@ -179,7 +128,10 @@
 
 
     <div class='education'>
-        <h2>🎓 학력</h2>
+        <div class = 'educationheader'>
+            <h2>🎓 학력</h2>
+            <button on:click={addEducation}>+ 학력 추가</button>
+        </div>
         {#each educationHistory as education, index}
             <div class="education-input">
                 {#if education.isEditable}
@@ -202,31 +154,16 @@
                 {/if}
             </div>
         {/each}
-        <button on:click={addEducation}>+ 학력 추가</button>
     </div>
     
-    <div class = 'links'>
-        <h2>🔗 링크</h2>
-        {#each links as link, index}
-            <div class = 'link-input'>
-                {#if link.isEditable}
-                    <input type="text" placeholder="링크" bind:value={link.url} />
-                    <input type="text" placeholder="설명" bind:value={link.description} />
-                    <button on:click={() => saveLink(index)}>저장</button>
-                {:else}
-                    <div>
-                        <a href={link.url} target="_blank">{link.description} | {link.url}</a>
-                        <button on:click={() => editLink(index)}>수정</button>
-                    </div>
-                {/if}
-            </div>
-        {/each}
-        <button on:click={addLink}>+ 링크 추가</button>
-    </div>
 
 </div>
   
   <style>
+    .intro .inputField {
+        width: 100%;
+        height: 100px;
+    }
     .container {
       display: flex;
       flex-direction: column;
@@ -242,34 +179,41 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 100px;
+        margin-bottom: 70px;
         border-bottom : 0.5px solid gray;
     }
   
       
     h1 {
       margin-bottom : 5px;
-      font-size: 25px;
+      font-size: 30px;
+      font-weight: bolder;
     }
   
     .page-header button {
-        padding: 5px 10px;
-        border: black 1px solid;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        color: black;
-        font-size: 16px;
+        border: none;
+        background-color: rgb(255, 255, 255);
+        color: rgb(104, 104, 104);
+        font-size: 15px;
         cursor: pointer;
     }
 
+    .page-header button:hover {
+    border-radius: 10px;
+    padding : 10px;
+    background-color: #7899a7;
+    color: #fff;
+    }
+
+
     .basicinfo {
         width: 100%;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
     .basicinfo .header {
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         
     }
 
@@ -280,11 +224,20 @@
         font-weight:bold;
     }
     .basicinfo button {
-        margin-bottom: 10px;
-        padding : 5px 10px;
+        padding : 2px 4px;
+        margin-left : 10px;
         border : none;
         border-radius : 5px;
-        background-color: rgb(236, 249, 255);
+        background-color: rgb(209, 209, 209);
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .intro button {
+        padding : 2px 4px;
+        margin-left : 10px;
+        border : none;
+        border-radius : 5px;
+        background-color: rgb(226, 226, 226);
         font-size: 15px;
         cursor: pointer;
     }
@@ -293,102 +246,117 @@
     .inputField {
         border: 1px solid #ccc; /* 기본 테두리 */
         padding: 5px;
+        margin-bottom : 5px;
     }
     
     .inputField.noBorder {
-        border: none; /* 테두리 제거 */
-        padding: 0;
+        border: 2px solid #dfdfdf; /* 테두리 제거 */
+        padding: 10px;
+        background-color: white;
+        border-radius: 5px;
     }
 
     .intro {
         width: 100%;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
     .intro .header {
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     
 
     .careers {
         width: 100%;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
-    
-    .careers .carrerheader button{
-        margin-top : 10px;
-        padding : 5px 10px;
-        border : 1px solid black;
+    .careers .careerheader {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .careers .careerheader button{
+        padding : 2px 4px;
+        margin-left : 10px;
+        border : none;
         border-radius : 5px;
-        background-color: rgb(236, 249, 255);
+        background-color: rgb(226, 226, 226);
         font-size: 15px;
         cursor: pointer;
-        margin-bottom : 20px;
     }
     
     .careers .career-input {
         margin-bottom: 20px;
     }
     .careers .career-input .career-wrapper{
-        border: 1px solid #ccc;
-        padding: 10px;
-        background-color: rgb(236, 249, 255);
+        border: 2px solid #dfdfdf;
+        padding: 20px;
+        border-radius: 15px;
+        font-weight: bold;
+        color : rgb(90, 90, 90);
+    }
+
+    .careers .career-input input {
+        margin-bottom: 10px;
+        width : 550px;
+        padding: 5px;
+        font-size : 18px;
+        border: 1px solid #dfdfdf;
+        border-radius: 5px;
+    }
+    .careers .career-input .time {
+        margin-bottom: 10px;
+        margin-right : 5px;
     }
     .careers .career-input button {
-        padding: 3px;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        font-size: 10px;
+        padding : 2px 4px;
+        margin-left : 10px;
+        border : none;
+        border-radius : 5px;
+        background-color: rgb(226, 226, 226);
+        font-size: 15px;
         cursor: pointer;
-        margin-left: 10px;
     }
+
+    
     .education {
         width: 100%;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
-    .education .education-input button {
-        padding: 3px;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        font-size: 10px;
+
+    .education .educationheader {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .education .educationheader button{
+        padding : 2px 4px;
+        margin-left : 10px;
+        border : none;
+        border-radius : 5px;
+        background-color: rgb(226, 226, 226);
+        font-size: 15px;
         cursor: pointer;
-        margin-left: 10px;
     }
+
+
+
+    
 
     .education button {
-        margin-top : 10px;
-        padding: 5px 10px;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
+        padding : 2px 4px;
+        margin-left : 10px;
+        margin-bottom : 5px;
+        border : none;
+        border-radius : 5px;
+        background-color: rgb(226, 226, 226);
         font-size: 15px;
         cursor: pointer;
     }
 
-    .links {
-        width: 100%;
-        margin-bottom: 100px;
-    }
-    .links .link-input button {
-        padding: 3px;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        font-size: 10px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-    .links button {
-        margin-top : 10px;
-        padding: 5px 10px;
-        border: 1px solid black;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        font-size: 15px;
-        cursor: pointer;
-    }
+
+
+
   </style>
   

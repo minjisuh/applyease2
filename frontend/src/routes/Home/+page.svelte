@@ -31,6 +31,7 @@
   
     h1 {
       margin-bottom : 5px;
-      font-size: 25px;
+      font-size: 30px;
+      font-weight: bolder;
     }
 </style>
