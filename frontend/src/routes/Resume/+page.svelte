@@ -56,7 +56,7 @@
         };
 
         const dataParam = encodeURIComponent(JSON.stringify(data));
-        const popup = window.open(`/userInfoPopup.html?data=${dataParam}`, 'UserInfoPopup', 'width=600,height=400');
+        const popup = window.open(`/userInfoPopup.html?data=${dataParam}`, 'UserInfoPopup', 'width=800,height=1500');
     }
 
 
@@ -70,7 +70,7 @@
 <div class="container">
     <header class="page-header">
         <h1>📜 이력서</h1>
-        <button on:click={openPopup}>Open User Info Popup</button>
+        <button on:click={openPopup}>미리보기</button>
     </header>
 
 
