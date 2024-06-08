@@ -60,7 +60,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 100px;
+        margin-bottom: 60px;
         border-bottom : 0.5px solid gray;
     }
   
@@ -72,12 +72,10 @@
     }
   
     .page-header button {
-        padding: 5px 10px;
-        border: black 1px solid;
-        border-radius: 5px;
-        background-color: rgb(236, 249, 255);
-        color: black;
-        font-size: 16px;
+        border: none;
+        background-color: rgb(255, 255, 255);
+        color: rgb(104, 104, 104);
+        font-size: 15px;
         cursor: pointer;
     }
 
