@@ -8,7 +8,7 @@
     export let date;
   
     let container;
-    onMount(() => {
+    onMount(() =>{
         new EventCalendar(container, {
             events, date
         })
@@ -16,5 +16,3 @@
   </script>
   
   <div bind:this={container} style="width: 100%; height: 100%;"></div>
-  
-  
