@@ -332,6 +332,7 @@
     
 
     .careers {
+        margin-left : 20px;
         width: 100%;
         margin-bottom: 50px;
     }
@@ -385,6 +386,7 @@
 
     
     .education {
+        margin-left : 20px;
         width: 100%;
         margin-bottom: 50px;
     }
