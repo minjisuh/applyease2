@@ -102,11 +102,17 @@
             const educationHistory = data.educationHistory;
 
             document.getElementById('name').innerText = userInfo.name;
+            document.getElementById('birth').innerText = userInfo.birth;
             document.getElementById('phone').innerText = userInfo.phone;
             document.getElementById('email').innerText = userInfo.email;
             document.getElementById('intro2').innerText = userInfo.intro2;
+            document.getElementById('address').innerText = userInfo.address;
 
-            const careerList = document.getElementById('careers');
+            if (userInfo.imageUrl) {
+                document.getElementById('uploadedImage').src = userInfo.imageUrl;
+            }
+
+            const careerList = document.getElementById('careersList');
             careers.forEach(career => {
                 const careerItem = document.createElement('div');
                 careerItem.classList.add('career-item');
@@ -122,7 +128,6 @@
                 educationList.appendChild(educationItem);
             });
         }
-
         function generatePDF() {
             html2canvas(document.querySelector('.cv-container')).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
@@ -153,13 +158,20 @@
     <div class="cv-container">
         <h1><span id="name"></span></h1>
         <div class="section">
+            <img src="/empty.png" alt="Empty Square"/>
+            <p><strong>생년월일 </strong> <span id="birth"></span></p>
             <p><strong>전화번호 </strong> <span id="phone"></span></p>
             <p><strong>이메일 </strong> <span id="email"></span></p>
+            <p><strong>주소 </strong> <span id="address"></span></p>
             <p><strong>소개 </strong> <span id="intro2"></span></p>
+
         </div>
         <div class="section">
-            <h2>경력 사항</h2>
-            <div id="careers"></div>
+            <div class="careers">
+                <h3>경력 사항</h3>
+                <div id="careersList"></div>
+            </div>
+            
         </div>
         <div class="section">
             <h2>학위</h2>

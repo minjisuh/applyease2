@@ -5,20 +5,37 @@
 
     let userInfo = {
         name: '',
+        birth: '',
         phone: '',
         email: '',
-        intro2 : ''
+        intro2: '',
+        imageUrl: '',
+        address: ''
     };
+
+    let careers = [
+        { startDate: null, endDate: null, company: '', department: '', isEditable: true },
+    ];
+    let educationHistory = [
+        { degree: '', school: '', major: '', isEditable: true },
+    ];
+
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                userInfo.imageUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
 
     let isEditing = false;
 
     function toggleEdit() {
         isEditing = !isEditing;
     }
-
-    let careers = [
-        { startDate: null, endDate: null, company: '', department: '', isEditable: true },
-    ];
 
     function addCareer() {
         careers = [...careers, { startDate: null, endDate: null, company: '', department: '', isEditable: true }];
@@ -32,7 +49,7 @@
         return date ? format(new Date(date), 'yyyy.MM') : '';
     }
 
-    let educationHistory = [];
+
 
     function addEducation() {
         educationHistory = [...educationHistory, { degree: '', school: '', major: '', isEditable: true }];
@@ -58,14 +75,8 @@
         const dataParam = encodeURIComponent(JSON.stringify(data));
         const popup = window.open(`/userInfoPopup.html?data=${dataParam}`, 'UserInfoPopup', 'width=800,height=1500');
     }
-
-
-
-    
-
-
-
 </script>
+
 
 <div class="container">
     <header class="page-header">
@@ -75,21 +86,43 @@
 
 
 
-    <div class = 'basicinfo'>
+    <div class='basicinfo'>
         <div class='header'>
-            <h2>😊 기본 정보</h2>
-            <button on:click={toggleEdit}>{isEditing ? '📥' : '🔧'}</button>
+          <h2>😊 기본 정보</h2>
+          <button on:click={toggleEdit}>{isEditing ? '📥' : '🔧'}</button>
         </div>
-        <div>
-            <input type="text" bind:value={userInfo.name} placeholder="이름" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+        <div class="container">
+          <div class="photo-upload">
+            <label for="file-upload">
+              {#if userInfo.imageUrl}
+                <img src={userInfo.imageUrl} alt="Uploaded Image" class="uploaded-image" />
+              {:else}
+                <img src="/empty.png" alt="Empty Square" class="uploaded-image" />
+              {/if}
+            </label>
+            <input id="file-upload" type="file" accept="image/*" on:change={handleFileUpload} style="display: none;" />
+          </div>
+          <div class="user-info">
+            <div>
+              <input type="text" bind:value={userInfo.name} placeholder="이름" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            </div>
+            <div> 
+              <input type="text" bind:value={userInfo.birth} placeholder="생년월일 (YYYY/MM/DD)" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+              <input type="text" bind:value={userInfo.phone} placeholder="전화 번호" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            </div>
+            <div>
+                <input type="email" bind:value={userInfo.email} placeholder="이메일" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+                <input type="text" bind:value={userInfo.address} placeholder="주소" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
+            </div>
+          </div>
         </div>
-        <div>
-            <input type="text" bind:value={userInfo.phone} placeholder="전화 번호" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
-        </div>
-        <div>
-            <input type="email" bind:value={userInfo.email} placeholder="이메일" class="inputField" class:noBorder={!isEditing} disabled={!isEditing} />
-        </div>
-    </div>
+      </div>
+      
+      
+      
+      
+
+
       
     <div class="intro">
         <div class="header">
@@ -173,7 +206,7 @@
       padding: 20px;
       max-width: 1200px; /* 최대 너비를 설정하여 양 옆에 공간을 만듭니다 */
     }
-  
+    
     .page-header {
         width: 100%;
         display: flex;
@@ -206,55 +239,79 @@
     }
 
 
+
     .basicinfo {
         width: 100%;
         margin-bottom: 50px;
     }
+
     .basicinfo .header {
         display: flex;
         align-items: center;
         margin-bottom: 15px;
-        
     }
 
     h2 {
         margin: 0;
         font-size: 20px;
-        color : rgb(66, 66, 66);
-        font-weight:bold;
+        color: rgb(66, 66, 66);
+        font-weight: bold;
     }
-    .basicinfo button {
-        padding : 2px 4px;
-        margin-left : 10px;
-        border : none;
-        border-radius : 5px;
+
+    button {
+        padding: 2px 4px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 5px;
         background-color: rgb(209, 209, 209);
         font-size: 15px;
         cursor: pointer;
     }
-    .intro button {
-        padding : 2px 4px;
-        margin-left : 10px;
-        border : none;
-        border-radius : 5px;
-        background-color: rgb(226, 226, 226);
-        font-size: 15px;
+
+    .basicinfo .container {
+        display: flex;
+        align-items: flex-start; /* Align items at the start of the container */
+    }
+
+    .photo-upload {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .uploaded-image {
+        width: 3cm;
+        height: 4cm;
+        margin-top: 10px;
         cursor: pointer;
     }
 
-    
+    .user-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        }
+
     .inputField {
         border: 1px solid #ccc; /* 기본 테두리 */
+        width : 400px;
+        height : 20px;
         padding: 5px;
-        margin-bottom : 5px;
-    }
-    
+        margin-bottom: 5px;
+        }
+
     .inputField.noBorder {
         border: 2px solid #dfdfdf; /* 테두리 제거 */
         padding: 10px;
         background-color: white;
         border-radius: 5px;
-    }
+        }
+
+
+
+    
 
     .intro {
         width: 100%;
@@ -264,6 +321,10 @@
         display: flex;
         align-items: center;
         margin-bottom: 15px;
+    }
+
+    .intro .inputField {
+        margin-left : 20px;
     }
     
 
