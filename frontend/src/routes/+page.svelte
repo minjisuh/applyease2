@@ -77,18 +77,19 @@
         
           </div>
         <div class="navigation">
+            <h6>✖</h6>
             <h2 class = "word font3">Explore our site</h2>
             <ul>
               <li>
-                <a href="/" class="folder-link">Home</a>
+                <a href="/Home" class="folder-link">Home</a>
                 <p class="description">채용 일정을 정리할 수 있습니다. </p>
               </li>
               <li>
-                <a href="/resume" class="folder-link">Resume</a>
+                <a href="/Resume" class="folder-link">Resume</a>
                 <p class="description">이력서 내용을 입력하고, 이력서 서식에 맞게 다운받을 수 있습니다.</p>
               </li>
               <li>
-                <a href="/cover-letter" class="folder-link">Cover Letter</a>
+                <a href="/CoverLetter" class="folder-link">Cover Letter</a>
                 <p class="description">자기소개서를 관리할 수 있습니다. </p>
               </li>
             </ul>
@@ -175,14 +176,20 @@
     margin: 0 auto;
     padding: 20px;
 
-    border-radius: 50px;
-    background-color: #3a4b5c;
+    border : 1px solid #2a2c33;
+    background-color: #aeb5bd;
   }
 
   .navigation h2 {
-    color : white;
+    color : rgb(37, 37, 37);
+    border : 1px solid #ddd;
     text-align: center;
     margin-bottom: 20px;
+    font-size : 30px;
+  }
+  .navigation h6 {
+    text-align : right;
+    margin : 0px;
     font-size : 30px;
   }
 
@@ -201,13 +208,15 @@
     background-color: #fff;
   }
 
+
   .folder-link {
     display: block;
     width: 150px;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
-    text-decoration: none;
+    margin-left : 30px;
+    color: #2b2929;
+    
   }
 
   .description {
