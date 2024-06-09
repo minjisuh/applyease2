@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",  # Adjust the port if needed
+    "http://localhost:5173",  # Your frontend URL
 ]
 
 TIME_ZONE = 'UTC'
