@@ -7,7 +7,7 @@
     <header class="page-header">
         <h1>📆 채용 일정</h1>
     </header>
-    <Calendar events={getData()} date={new Date(2024, 6, 9)} />
+    <Calendar events={getData()} date={new Date(2024, 6, 10)} />
 </div>
 <style>
     .container {
