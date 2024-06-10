@@ -11,9 +11,9 @@
 
     onMount(async () => {
         try {
-            // Replace 'http://localhost:8000/api/' with your Django API base URL
-            const eventsResponse = await axios.get('http://localhost:8000/api/events/');
-            const calendarsResponse = await axios.get('http://localhost:8000/api/calendars/');
+            // Replace 'http://localhost:8777/api/' with your Django API base URL
+            const eventsResponse = await axios.get('http://localhost:8777/api/events/');
+            const calendarsResponse = await axios.get('http://localhost:8777/api/calendars/');
             
             events = eventsResponse.data;
             calendars = calendarsResponse.data;
@@ -25,7 +25,7 @@
             });
 
             // Optional: setup RestDataProvider if needed
-            // const url = 'http://localhost:8000/api/';
+            // const url = 'http://localhost:8777/api/';
             // const restProvider = new eventCalendar.RestDataProvider(url);
             // calendar.api.setNext(restProvider);
 
