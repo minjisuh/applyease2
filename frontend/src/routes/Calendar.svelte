@@ -11,7 +11,6 @@
 
     onMount(async () => {
         try {
-            // Replace 'http://localhost:8777/api/' with your Django API base URL
             const eventsResponse = await axios.get('http://localhost:8777/api/events/');
             const calendarsResponse = await axios.get('http://localhost:8777/api/calendars/');
             
@@ -30,7 +29,7 @@
             // calendar.api.setNext(restProvider);
 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching data !! :', error);
         }
     });
 </script>

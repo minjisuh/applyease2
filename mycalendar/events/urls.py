@@ -1,12 +1,7 @@
-# events/urls.py
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import CalendarViewSet, EventViewSet
-
-router = DefaultRouter()
-router.register(r'calendars', CalendarViewSet)
-router.register(r'events', EventViewSet)
+from django.urls import path
+from .views import EventListView, CalendarListView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('events/', EventListView.as_view(), name='event-list'),
+    path('calendars/', CalendarListView.as_view(), name='calendar-list'),
 ]

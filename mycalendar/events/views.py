@@ -1,12 +1,11 @@
-# events/views.py
-from rest_framework import viewsets
-from .models import Calendar, Event
-from .serializers import CalendarSerializer, EventSerializer
+from rest_framework import generics
+from .models import Event, Calendar
+from .serializers import EventSerializer, CalendarSerializer
 
-class CalendarViewSet(viewsets.ModelViewSet):
-    queryset = Calendar.objects.all()
-    serializer_class = CalendarSerializer
-
-class EventViewSet(viewsets.ModelViewSet):
+class EventListView(generics.ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+class CalendarListView(generics.ListCreateAPIView):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
