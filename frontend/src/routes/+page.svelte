@@ -81,7 +81,7 @@
             <h2 class = "word font3">Explore our site</h2>
             <ul>
               <li>
-                <a href="/Home" class="folder-link">Home</a>
+                <a href="/Home" class="folder-link">Calendar</a>
                 <p class="description">채용 일정을 정리할 수 있습니다. </p>
               </li>
               <li>
