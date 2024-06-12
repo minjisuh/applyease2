@@ -133,10 +133,6 @@
             document.getElementById('intro2').innerText = userInfo.intro2;
             document.getElementById('address').innerText = userInfo.address;
 
-            if (userInfo.imageUrl) {
-                document.getElementById('uploadedImage').src = userInfo.imageUrl;
-            }
-
             const careerList = document.getElementById('careersList');
             careers.forEach(career => {
                 const careerItem = document.createElement('div');

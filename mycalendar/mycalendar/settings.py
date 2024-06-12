@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5175",  # Your Svelte frontend URL
+    "http://localhost:5176",  # Your Svelte frontend URL
 ]
 
 TIME_ZONE = 'UTC'
