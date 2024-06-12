@@ -7,5 +7,5 @@
  - 자기소개서 제작
 입니다.
 
-frontend : svelte kit
+frontend : svelte kit    
 backend : django REST
